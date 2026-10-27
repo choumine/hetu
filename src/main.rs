@@ -1520,12 +1520,33 @@ fn truncate(text: &str, width: f32, size: f32) -> String {
     }
 }
 
+/// 窗口 / 任务栏图标。PNG 随二进制一起编进去，运行时不依赖外部文件。
+fn window_icon() -> egui::IconData {
+    const PNG: &[u8] = include_bytes!("../assets/icon.png");
+    const SIDE: u32 = 256;
+
+    let Ok(img) = image::load_from_memory(PNG) else {
+        return egui::IconData { rgba: vec![0; 4], width: 1, height: 1 };
+    };
+    let img = img.to_rgba8();
+    let (w, h) = img.dimensions();
+    let (rgba, width, height) = if w.max(h) > SIDE {
+        let scaled = image::imageops::resize(&img, SIDE, SIDE, FilterType::Lanczos3);
+        (scaled.into_raw(), SIDE, SIDE)
+    } else {
+        (img.into_raw(), w, h)
+    };
+
+    egui::IconData { rgba, width, height }
+}
+
 fn main() -> eframe::Result {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([1280.0, 830.0])
             .with_min_inner_size([1040.0, 680.0])
-            .with_title("合图 · 多图拼接工具"),
+            .with_title("合图 · 多图拼接工具")
+            .with_icon(window_icon()),
         ..Default::default()
     };
 

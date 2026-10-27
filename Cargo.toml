@@ -1,13 +1,17 @@
 [package]
 name = "hetu"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
+build = "build.rs"
 
 [dependencies]
 arboard = "3.7.0"
 eframe = { version = "0.37.0", default-features = false, features = ["glow", "default_fonts"] }
 image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "webp", "bmp", "gif", "tiff"] }
 rfd = "0.17.2"
+
+[build-dependencies]
+embed-resource = "3.0"
 
 [profile.release]
 opt-level = 3

@@ -15,6 +15,7 @@ Rust + egui 实现，编译产物是单个 exe（约 6 MB），不依赖 Python�
 - 实时预览，导出始终按原始像素
 - 导出 PNG / JPG / WebP，JPG / WebP 可调质量
 - 列表拖拽排序、单张移除
+- 自带应用图标（exe 文件图标 + 窗口/任务栏图标）
 
 ## 构建
 
@@ -47,7 +48,12 @@ cargo +stable-x86_64-pc-windows-gnu build --release
 ## 结构
 
 ```
-src/main.rs   全部逻辑（UI、布局、合成、导出）
+src/main.rs        全部逻辑（UI、布局、合成、导出）
+assets/icon.png    图标源图（1024×1024，同时作为窗口图标）
+assets/icon.ico    exe 图标（16–256 多尺寸）
+app.rc             图标 + 文件版本属性
+build.rs           构建时把资源编进 exe（rc.exe / windres）
+tools/gen_icon.py  图标生成脚本（pillow）
 Cargo.toml
 ```
 

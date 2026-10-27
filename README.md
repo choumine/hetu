@@ -4,6 +4,8 @@
 
 Rust + egui 实现，编译产物是单个 exe（约 6 MB），不依赖 Python、Node 或 WebView2 运行时。
 
+**下载**：[最新版本](https://github.com/choumine/hetu/releases/latest)（Windows x64，约 6 MB，解压即用）
+
 ## 功能
 
 - 添加图片（多选）、粘贴剪贴板截图
